@@ -2,9 +2,19 @@
     "version": 2,
     "framework": null,
     "outputDirectory": "public",
+    "buildCommand": "composer install --no-dev --optimize-autoloader --no-interaction 2>&1",
     "functions": {
         "api/index.php": {
-            "runtime": "vercel-php@0.8.0"
+            "runtime": "vercel-php@0.8.0",
+            "includeFiles": [
+                "app/**",
+                "bootstrap/**",
+                "config/**",
+                "database/**",
+                "resources/views/**",
+                "routes/**",
+                "vendor/**"
+            ]
         }
     },
     "routes": [
@@ -13,7 +23,7 @@
             "dest": "/public/build/$1"
         },
         {
-            "src": "/(css|js|images)/(.*)",
+            "src": "/(css|js|images|fonts)/(.*)",
             "dest": "/public/$1/$2"
         },
         {

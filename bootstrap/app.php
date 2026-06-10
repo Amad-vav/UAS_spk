@@ -21,7 +21,8 @@ $app = Application::configure(basePath: dirname(__DIR__))
     })->create();
 
 // Override storage path for serverless environment (Vercel)
-if (env('DB_DATABASE') && str_starts_with(env('DB_DATABASE'), '/tmp/')) {
+// Cek apakah running di Vercel atau environment serverless
+if (getenv('VERCEL') || (getenv('DB_DATABASE') && str_starts_with(getenv('DB_DATABASE'), '/tmp/'))) {
     $app->useStoragePath('/tmp/storage');
 }
 
