@@ -17,4 +17,7 @@ require __DIR__.'/../vendor/autoload.php';
 /** @var Application $app */
 $app = require_once __DIR__.'/../bootstrap/app.php';
 
+// Ensure the view service provider is registered in serverless/runtime contexts.
+$app->register(Illuminate\View\ViewServiceProvider::class, force: true);
+
 $app->handleRequest(Request::capture());
