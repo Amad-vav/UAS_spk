@@ -1,63 +1,99 @@
-<<<<<<< HEAD
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 📊 SPK Pemilihan Influencer UMKM (Metode SAW)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Sistem Pendukung Keputusan (SPK) Pemilihan Influencer UMKM adalah aplikasi berbasis web yang dirancang untuk membantu pemilik UMKM menentukan influencer media promosi yang paling tepat dan optimal untuk campaign mereka menggunakan metode **SAW (Simple Additive Weighting)**.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🛠️ Tech Stack & Desain
+- **Framework & Core**: Laravel, PHP (>= 8.3)
+- **Database**: SQLite (sangat mudah digunakan secara lokal)
+- **Desain UI/UX (IMK)**: 
+  - **Aesthetic**: Perpaduan warna *Deep Emerald Green* (#097969) untuk Sidebar, *Soft Sage Green* (#F0F4F1) untuk Latar Belakang, dan *Warm Ochre/Gold* (#D4AF37) sebagai penanda Juara/VIP.
+  - **Tipografi**: Font modern (Inter/Roboto) untuk antarmuka pengguna, dan Times New Roman (standar akademik) untuk tabel hasil analisis perhitungan.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 🧮 Algoritma SAW & Kriteria Penilaian
+Metode **Simple Additive Weighting (SAW)** sering dikenal sebagai metode penjumlahan terbobot. Sistem ini menilai influencer berdasarkan 5 kriteria utama berikut:
 
-## Learning Laravel
+| Kode | Kriteria Penilaian | Jenis Atribut | Bobot Kriteria |
+| :--- | :--- | :---: | :---: |
+| **C1** | Engagement Rate | Benefit | 25% |
+| **C2** | Jumlah Followers | Benefit | 20% |
+| **C3** | Kesesuaian Niche | Benefit | 20% |
+| **C4** | Biaya per Post | Cost | 20% |
+| **C5** | Attitude & Profesionalisme | Benefit | 15% |
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Langkah Perhitungan SAW dalam Sistem:
+1. **Normalisasi Matriks Keputusan**:
+   - Jika atribut Benefit: $r_{ij} = \frac{x_{ij}}{\max(x_{ij})}$
+   - Jika atribut Cost: $r_{ij} = \frac{\min(x_{ij})}{x_{ij}}$
+2. **Perhitungan Preferensi ($V_i$)**:
+   - $V_i = \sum_{j=1}^{n} (w_j \times r_{ij})$
+3. **Perankingan**:
+   - Influencer diurutkan berdasarkan nilai preferensi tertinggi ke terendah. Influencer dengan nilai $V_i$ terbesar menjadi rekomendasi utama.
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+## 📱 Fitur Utama
+1. **Dashboard**: Statistik ringkas jumlah campaign aktif, influencer terdaftar, dan panduan penggunaan sistem.
+2. **Manajemen Campaign**: CRUD Campaign dengan detail UMKM, tipe UMKM, dan nama proyek.
+3. **Form Input Dinamis**: Formulir penginputan influencer dengan baris yang dapat ditambah atau dihapus secara dinamis di halaman web.
+4. **Analisis Perhitungan SAW Otomatis**: Menyajikan 4 tabel akademik:
+   - Matriks Keputusan Awal
+   - Matriks Normalisasi
+   - Nilai Preferensi & Ranking Akhir
+   - Bobot Kriteria
+5. **Rekomendasi Utama (Juara #1)**: Dekorasi khusus pada pemenang dengan badge "👑 Rekomendasi Utama", warna border emas (Warm Ochre), dan teks tebal untuk visual feedback yang jelas.
+6. **VIP Feature Lock**: Metode WP (Weighted Product) dan AHP (Analytic Hierarchy Process) dikunci dengan modal notifikasi premium/VIP sebagai elemen interaksi manusia komputer (IMK).
 
-## Agentic Development
+---
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+## 🚀 Panduan Setup & Menjalankan Aplikasi Secara Lokal
 
+Ikuti langkah-langkah di bawah ini untuk menjalankan aplikasi di komputer Anda:
+
+### 1. Prasyarat (Prerequisites)
+Pastikan Anda sudah menginstal:
+- **PHP** (versi 8.3 atau yang lebih baru)
+- **Composer** (untuk manajemen package PHP)
+- **Node.js & NPM** (untuk frontend compilation)
+
+### 2. Instalasi Dependensi & Setup Project
+Buka terminal/command prompt di folder project `UAS_spk`, kemudian jalankan perintah berikut:
+
+1. **Salin File Environment**:
+   ```bash
+   copy .env.example .env
+   ```
+
+2. **Instal Dependensi PHP**:
+   ```bash
+   composer install
+   ```
+   *(Atau gunakan `php composer.phar install` jika Anda menggunakan file phar lokal)*
+
+3. **Generate Application Key**:
+   ```bash
+   php artisan key:generate
+   ```
+
+4. **Instal & Build Aset Frontend**:
+   ```bash
+   npm install
+   npm run build
+   ```
+
+### 3. Migrasi Database & Seeder
+Buat database SQLite kosong (atau Laravel akan menanyakannya secara otomatis saat migrasi dijalankan). Jalankan perintah berikut untuk membuat tabel dan mengisi data kriteria dasar serta campaign contoh:
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+php artisan migrate:fresh --seed
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-=======
-# UAS_spk
-uas bu putri
->>>>>>> b326426b7be563a6b336d871a112d136655826b0
+### 4. Menjalankan Server Development
+Jalankan perintah berikut untuk mengaktifkan local server Laravel:
+```bash
+php artisan serve
+```
+Buka browser Anda dan akses aplikasi melalui tautan:
+👉 **[http://localhost:8000](http://localhost:8000)**
