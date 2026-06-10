@@ -7,26 +7,26 @@
             "includeFiles": "{app,bootstrap,config,database,resources/views,routes,vendor}/**"
         }
     },
-    "routes": [
+    "rewrites": [
         {
-            "src": "/build/(.*)",
-            "dest": "/public/build/$1"
+            "source": "/build/(.*)",
+            "destination": "/public/build/$1"
         },
         {
-            "src": "/(css|js|images|fonts)/(.*)",
-            "dest": "/public/$1/$2"
+            "source": "/(css|js|images|fonts)/(.*)",
+            "destination": "/public/$1/$2"
         },
         {
-            "src": "/favicon.ico",
-            "dest": "/public/favicon.ico"
+            "source": "/favicon.ico",
+            "destination": "/public/favicon.ico"
         },
         {
-            "src": "/robots.txt",
-            "dest": "/public/robots.txt"
+            "source": "/robots.txt",
+            "destination": "/public/robots.txt"
         },
         {
-            "src": "/(.*)",
-            "dest": "/api/index.php"
+            "source": "/(.*)",
+            "destination": "/api/index.php"
         }
     ]
 }
