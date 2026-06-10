@@ -1,4 +1,4 @@
-FROM php:8.2-apache
+FROM php:8.3-apache
 
 # 1. Install dependensi sistem dan extension PHP untuk SQLite
 RUN apt-get update && apt-get install -y \
@@ -46,5 +46,9 @@ RUN php artisan config:cache && php artisan route:cache && php artisan view:cach
 # 11. Expose port 80
 EXPOSE 80
 
-# 12. Jalankan migrasi database, seeding, lalu nyalakan Apache saat container mulai berjalan
-CMD php artisan migrate --force && php artisan db:seed --force && apache2-foreground
+# 12. Gunakan entrypoint yang bisa mengaktifkan migrasi via env var, lalu jalankan Apache
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
+CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
