@@ -10,7 +10,7 @@ Repo sudah dikonfigurasi untuk Vercel dengan PHP serverless dan build asset Vite
 4. Pastikan Vercel mendeteksi project sebagai Node + PHP, lalu `Import`.
 5. Gunakan `main` sebagai branch deploy.
 6. Jika Vercel meminta Build Command, gunakan:
-   - `npm install && npm run build`
+   - `npm run vercel-build`
    - Output Directory: `public`
 7. Jalankan deploy.
 
